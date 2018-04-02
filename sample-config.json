@@ -1,0 +1,12 @@
+{
+  "accessories": [
+    {
+      "accessory": "NodeMCUSwitch",
+      "name": "Patio light",
+      "url": "http://192.168.0.17",
+      "default_state_off": true, 
+      "sendimmediately": true,
+      "http_method": "GET"
+    }
+  ]
+}

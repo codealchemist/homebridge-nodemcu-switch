@@ -1,0 +1,34 @@
+{
+  "name": "homebridge-nodemcu-switch",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for NodeMCU switch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard-focus"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codealchemist/homebridge-nodemcu-switch.git"
+  },
+  "keywords": [
+    "homebridge",
+    "berthing",
+    "switch",
+    "iot",
+    "homekit",
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "homebridge": ">=0.2.0"
+  },
+  "author": "Alberto Miranda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codealchemist/homebridge-nodemcu-switch/issues"
+  },
+  "homepage": "https://github.com/codealchemist/homebridge-nodemcu-switch#readme",
+  "dependencies": {
+    "request": "^2.85.0",
+    "standard-focus": "^1.1.2"
+  }
+}
