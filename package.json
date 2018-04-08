@@ -29,6 +29,7 @@
   "homepage": "https://github.com/codealchemist/homebridge-nodemcu-switch#readme",
   "dependencies": {
     "request": "^2.85.0",
-    "standard-focus": "^1.1.2"
+    "standard-focus": "^1.1.2",
+    "ws": "^5.1.1"
   }
 }

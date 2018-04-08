@@ -1,32 +1,39 @@
 let Service, Characteristic
 const request = require('request')
+const socket = require('./socket')
 
 class NodeMCUSwitch {
   constructor (log, config) {
     this.log = log
 
-    // url info
-    this.url = `${config['host']}`
-    this.endpoints = {
-      state: `${this.url}/state`,
-      on: `${this.url}/on`,
-      off: `${this.url}/off`,
-      switch: `${this.url}/switch`
-    }
-    this.booleanEndpoints = {
-      true: this.endpoints.on,
-      false: this.endpoints.off
-    }
+    this.discoveryUrl = config['discoveryUrl']
+    socket.setLogger = this.log
+    socket.connect(this.discoveryUrl)
+    socket.onDevice((device) => {
+      this.log('GOT DEVICE:', device)
+      this.deviceIp = device.ip
+      this.endpoints = {
+        state: `${this.deviceIp}/state`,
+        on: `${this.deviceIp}/on`,
+        off: `${this.deviceIp}/off`,
+        switch: `${this.deviceIp}/switch`
+      }
+      this.booleanEndpoints = {
+        true: this.endpoints.on,
+        false: this.endpoints.off
+      }
+    })
+
     this.http_method = config['http_method']
     this.sendimmediately = config['sendimmediately']
     this.default_state_off = config['default_state_off']
-    this.name = config['name']
+    this.name = config['name']    
   }
 
   getPowerState (callback) {
     request(this.endpoints.state, (err, response, body) => {
       if (err) throw new Error('ERR: getPowerState failed', err)
-      console.log('POWER STATE:', body)
+      this.log('POWER STATE:', body)
       const data = JSON.parse(body)
       callback(null, data.state)
     })
@@ -40,7 +47,7 @@ class NodeMCUSwitch {
         callback(err)
       } else {
         this.log('HTTP power function succeeded!')
-        console.log('RESPONSE BODY', body)
+        this.log('RESPONSE BODY', body)
         var info = JSON.parse(body)
         this.log(body)
         this.log(info)
